@@ -53,22 +53,22 @@ jobs:
       - name: Checkout Framework scaffold
         uses: actions/checkout@v4
         with:
-          repository: helderperez-dev/voodoo
+          repository: helderperez-dev/grumo
           path: voodoo
       - name: Checkout Store binding
         uses: actions/checkout@v4
         with:
-          repository: helderperez-dev/voodoo-store
+          repository: helderperez-dev/grumo-store
           path: voodoo-store
       - name: Checkout Site and Skills contracts
         uses: actions/checkout@v4
         with:
-          repository: helderperez-dev/voodoo-site
+          repository: helderperez-dev/grumo-site
           path: voodoo-site
       - name: Checkout Skills
         uses: actions/checkout@v4
         with:
-          repository: helderperez-dev/voodoo-skills
+          repository: helderperez-dev/grumo-skills
           path: voodoo-skills
       - uses: dtolnay/rust-toolchain@stable
       - uses: actions/setup-python@v5
@@ -78,12 +78,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip build maturin
           python -m build --wheel --outdir /tmp/voodoo-wheels voodoo
-          maturin build --release --out /tmp/voodoo-wheels \
-            --manifest-path voodoo-store/crates/voodoo-store-python/Cargo.toml
+          (cd voodoo-store && maturin build --release --out /tmp/voodoo-wheels)
       - name: Install release wheels and generated app
         run: |
           python -m pip install /tmp/voodoo-wheels/voodoo_framework-*.whl
-          python -m pip install /tmp/voodoo-wheels/voodoo_store-*.whl
+          python -m pip uninstall -y voodoo-store
+          python -m pip install /tmp/voodoo-wheels/grumo_store-*.whl
           python -m pip install -e default --no-deps
           python -m pip install -e voodoo-site
           python -m pip install playwright
