@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "framework": ">=3.2,<3.3",
-  "store": ">=0.3,<0.4",
+  "framework": ">=2.0.0,<3.0.0",
+  "store": ">=2.0.0,<3.0.0",
   "python": ">=3.12",
   "template_api": 1,
-  "upgrade_policy": "Regenerate from the supported template line after reviewing the release notes; preserve .voodoo/application.vstore before upgrades."
+  "upgrade_policy": "Regenerate from the supported template line after reviewing the release notes; preserve .grumo/application.grumo before upgrades."
 }

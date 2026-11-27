@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "canonical_repository": "voodoo-templates",
+  "canonical_repository": "grumo-templates",
   "canonical_root": "default",
-  "framework_mirror": "voodoo/src/voodoo/scaffold/default",
+  "framework_mirror": "grumo/src/grumo/scaffold/default",
   "shared_files": [
     ".env.example",
     ".github/workflows/quality.yml",

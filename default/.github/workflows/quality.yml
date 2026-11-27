@@ -37,13 +37,13 @@ jobs:
           python -m playwright install --with-deps chromium
       - name: Start generated application
         env:
-          VOODOO_ENV: test
-          VOODOO_SECRET_KEY: generated-app-browser-secret
-          VOODOO_HOST: 127.0.0.1
-          VOODOO_PORT: "8766"
+          GRUMO_ENV: test
+          GRUMO_SECRET_KEY: generated-app-browser-secret
+          GRUMO_HOST: 127.0.0.1
+          GRUMO_PORT: "8766"
         run: |
-          python -m uvicorn voodoo.core:app --host 127.0.0.1 --port 8766 > /tmp/voodoo-template.log 2>&1 &
-          echo $! > /tmp/voodoo-template.pid
+          python -m uvicorn grumo.core:app --host 127.0.0.1 --port 8766 > /tmp/grumo-template.log 2>&1 &
+          echo $! > /tmp/grumo-template.pid
           python - <<'PY'
           import time
           import urllib.request
@@ -58,8 +58,8 @@ jobs:
           PY
       - name: Run browser/a11y smoke test
         env:
-          VOODOO_APP_URL: http://127.0.0.1:8766/
+          GRUMO_APP_URL: http://127.0.0.1:8766/
         run: pytest -q tests/browser
       - name: Stop generated application
         if: always()
-        run: kill "$(cat /tmp/voodoo-template.pid)" 2>/dev/null || true
+        run: kill "$(cat /tmp/grumo-template.pid)" 2>/dev/null || true
