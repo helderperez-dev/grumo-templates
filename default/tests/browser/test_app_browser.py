@@ -15,5 +15,5 @@ def test_landing_page_browser_contract() -> None:
         page.goto(url, wait_until="networkidle")
         assert page.locator("main").count() == 1
         assert page.locator("h1").first.inner_text()
-        assert page.locator("body").inner_text().find("Your application") >= 0
+        assert page.locator("body").inner_text().find("Hello, Grumo") >= 0
         browser.close()
