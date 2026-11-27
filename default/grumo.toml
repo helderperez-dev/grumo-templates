@@ -1,0 +1,13 @@
+[app]
+name = "grumo-app"
+
+# Development is safe by default. For production, set GRUMO_ENV=production,
+# provide a unique GRUMO_SECRET_KEY (at least 32 characters), configure
+# explicit CORS origins, and run `grumo doctor` before deployment.
+
+[store]
+provider = "grumo"
+path = ".grumo/application.grumo"
+
+# The Runtime creates application.grumo automatically.
+# External SQL, object, and queue infrastructure is opt-in.
