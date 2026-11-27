@@ -22,7 +22,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install published Grumo and template
         run: |
-          python -m pip install "grumo==2.0.0" "grumo-store>=2.0.0,<3.0.0"
+          python -m pip install "grumo==2.0.1" "grumo-store>=2.0.0,<3.0.0"
           python -m pip install -e "default[dev,browser]"
           python -m pip install "pip-audit==2.10.1"
           python scripts/audit_environment.py
