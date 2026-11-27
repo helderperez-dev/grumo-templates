@@ -14,7 +14,7 @@ from pathlib import Path
 REQUIRED_TEMPLATE = (
     Path("app/page.py"),
     Path("pyproject.toml"),
-    Path("voodoo.toml"),
+    Path("grumo.toml"),
     Path("README.md"),
     Path(".env.example"),
     Path("COMPATIBILITY.json"),
@@ -25,7 +25,7 @@ REQUIRED_FRAMEWORK = REQUIRED_TEMPLATE + (
     Path("app/users/[id]/page.py"),
     Path("README.md"),
 )
-SUPPORTED_RANGE = 'voodoo-framework>=3.2,<3.3'
+SUPPORTED_RANGE = 'grumo>=2.0.0,<3.0.0'
 
 
 def _assert_files(root: Path, required: tuple[Path, ...], label: str) -> None:
@@ -39,7 +39,7 @@ def main() -> None:
     parser.add_argument(
         "--framework-root",
         type=Path,
-        help="Framework checkout (defaults to a sibling ../voodoo checkout)",
+        help="Framework checkout (defaults to a sibling ../grumo checkout)",
     )
     args = parser.parse_args()
 
@@ -51,14 +51,14 @@ def main() -> None:
     if 'requires-python = ">=3.12"' not in template_pyproject:
         raise SystemExit("default template must target Python 3.12 or newer")
     compatibility = json.loads((template_root / "COMPATIBILITY.json").read_text())
-    if compatibility.get("framework") != ">=3.2,<3.3" or compatibility.get("store") != ">=0.3,<0.4":
+    if compatibility.get("framework") != ">=2.0.0,<3.0.0" or compatibility.get("store") != ">=2.0.0,<3.0.0":
         raise SystemExit("template compatibility metadata is outside the supported release ranges")
     for source in (template_root / "app").rglob("*.py"):
         compile(source.read_text(), str(source), "exec")
 
     framework_root = args.framework_root
     if framework_root is None:
-        framework_root = template_root.parents[1] / "voodoo" / "src" / "voodoo" / "scaffold" / "default"
+        framework_root = template_root.parents[1] / "grumo" / "src" / "grumo" / "scaffold" / "default"
     _assert_files(framework_root, REQUIRED_FRAMEWORK, "Framework scaffold")
     framework_pyproject = (framework_root / "pyproject.toml").read_text()
     if SUPPORTED_RANGE not in framework_pyproject:

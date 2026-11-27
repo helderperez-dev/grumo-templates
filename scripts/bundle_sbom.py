@@ -15,7 +15,7 @@ def main() -> int:
     root = Path(__file__).parents[1]
     excluded = {
         ".git", ".venv", ".pytest_cache", ".ruff_cache", ".mypy_cache",
-        "__pycache__", ".voodoo", "target", "dist",
+        "__pycache__", ".grumo", "target", "dist",
     }
     components = []
     for path in sorted(

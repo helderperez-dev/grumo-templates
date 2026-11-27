@@ -21,7 +21,7 @@ def _wait_for_app(url: str, log_path: Path, process: subprocess.Popen[bytes]) ->
         try:
             with urllib.request.urlopen(url, timeout=1) as response:
                 body = response.read()
-                if response.status == 200 and b"Your application" in body:
+                if response.status == 200 and b"Hello, Grumo" in body:
                     health_url = url.rsplit("/", 1)[0] + "/healthz"
                     ready_url = url.rsplit("/", 1)[0] + "/readyz"
                     with urllib.request.urlopen(health_url, timeout=1) as health:
@@ -50,10 +50,10 @@ def _start(project: Path, port: int, log_path: Path) -> subprocess.Popen[bytes]:
     environment = os.environ.copy()
     environment.update(
         {
-            "VOODOO_ENV": "test",
-            "VOODOO_SECRET_KEY": "ci-generated-app-secret-key",
-            "VOODOO_HOST": "127.0.0.1",
-            "VOODOO_PORT": str(port),
+            "GRUMO_ENV": "test",
+            "GRUMO_SECRET_KEY": "ci-generated-app-secret-key",
+            "GRUMO_HOST": "127.0.0.1",
+            "GRUMO_PORT": str(port),
         }
     )
     process = subprocess.Popen(
@@ -61,7 +61,7 @@ def _start(project: Path, port: int, log_path: Path) -> subprocess.Popen[bytes]:
             sys.executable,
             "-m",
             "uvicorn",
-            "voodoo.core:app",
+            "grumo.core:app",
             "--host",
             "127.0.0.1",
             "--port",
@@ -101,7 +101,7 @@ def _browser_check(url: str) -> None:
             raise RuntimeError("generated app browser contract expected one <main>")
         if not page.locator("h1").first.inner_text():
             raise RuntimeError("generated app browser contract expected a heading")
-        if "Your application" not in page.locator("body").inner_text():
+        if "Hello, Grumo" not in page.locator("body").inner_text():
             raise RuntimeError("generated app browser contract found unexpected page text")
         browser.close()
 
@@ -125,7 +125,7 @@ def main() -> int:
     first = _start(project, args.port, log_path)
     try:
         _wait_for_app(url, log_path, first)
-        store = project / ".voodoo" / "application.vstore"
+        store = project / ".grumo" / "application.grumo"
         if not store.is_file() or store.stat().st_size == 0:
             raise RuntimeError("generated app did not create a durable Store")
         if args.browser:
