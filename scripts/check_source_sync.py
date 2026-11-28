@@ -32,7 +32,7 @@ def main() -> int:
         raise SystemExit("SOURCE_OF_TRUTH.json must declare shared_files")
     framework_root = args.framework_root
     if framework_root is None:
-        framework_root = TEMPLATE_ROOT.parents[1] / "voodoo" / "src" / "voodoo" / "scaffold" / "default"
+        framework_root = TEMPLATE_ROOT.parents[1] / "grumo" / "src" / "grumo" / "scaffold" / "default"
     drift: list[str] = []
     for relative in files:
         source = TEMPLATE_ROOT / relative

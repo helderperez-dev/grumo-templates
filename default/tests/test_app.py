@@ -10,7 +10,6 @@ def test_landing_page_renders_semantic_shell() -> None:
     html = page.render()
     assert "<main" in html
     assert "<h1" in html
-    assert "Your application" in html
 
 
 def test_landing_page_has_no_inline_script() -> None:

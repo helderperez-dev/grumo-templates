@@ -23,7 +23,7 @@ def main() -> int:
         and ".pytest_cache" not in path.parts
         and ".mypy_cache" not in path.parts
         and ".venv" not in path.parts
-        and ".voodoo" not in path.parts
+        and ".grumo" not in path.parts
         and "target" not in path.parts
         and "dist" not in path.parts
         and path != args.output

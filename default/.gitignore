@@ -6,5 +6,5 @@ __pycache__/
 .ruff_cache/
 *.egg-info/
 .data/
-.voodoo/*
-!.voodoo/theme/
+.grumo/*
+!.grumo/theme/

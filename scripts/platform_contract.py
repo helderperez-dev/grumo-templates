@@ -7,8 +7,8 @@ import sys
 import tempfile
 from pathlib import Path
 
-from voodoo.ui import Button
-from voodoo.ui.styles.theme import default_theme
+from grumo.ui import Button
+from grumo.ui.styles.theme import default_theme
 
 
 def main() -> int:
@@ -17,10 +17,10 @@ def main() -> int:
     assert 'id="vd-button-' in rendered
     assert "--vd-space-sm" in default_theme.to_css_variables()
 
-    from voodoo_store import Store
+    from grumo_store import Store
 
-    with tempfile.TemporaryDirectory(prefix="voodoo-template-") as directory:
-        path = Path(directory) / "Generated App Ω" / "application.vstore"
+    with tempfile.TemporaryDirectory(prefix="grumo-template-") as directory:
+        path = Path(directory) / "Generated App Ω" / "application.grumo"
         path.parent.mkdir()
         with Store.open(path) as store:
             store.put(b"platform:key", b"value")
@@ -31,7 +31,7 @@ def main() -> int:
                 sys.executable,
                 "-c",
                 (
-                    "from voodoo_store import Store; "
+                    "from grumo_store import Store; "
                     "from pathlib import Path; import sys; "
                     "p=Path(sys.argv[1]); "
                     "exec(\"with Store.open(p) as s: s.put(b'process:key', b'process-value')\")"

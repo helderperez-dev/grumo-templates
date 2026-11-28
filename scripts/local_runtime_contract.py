@@ -13,7 +13,7 @@ ROOT = Path(__file__).parents[1]
 
 
 def main() -> int:
-    with tempfile.TemporaryDirectory(prefix="voodoo-template-runtime-") as directory:
+    with tempfile.TemporaryDirectory(prefix="grumo-template-runtime-") as directory:
         project = Path(directory) / "default"
         shutil.copytree(ROOT / "default", project)
         result = subprocess.run(
